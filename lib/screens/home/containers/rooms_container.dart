@@ -1,6 +1,7 @@
 import 'package:fakebook/common/themes/themes.dart';
 import 'package:fakebook/common/widgets/profile_avatar.dart';
 import 'package:fakebook/models/models.dart';
+import 'package:fakebook/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
@@ -14,26 +15,31 @@ class RoomsContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 60,
-      color: Colors.white,
-      child: ListView.builder(
-        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
-        scrollDirection: Axis.horizontal,
-        itemCount: onlineUsers.length + 1,
-        itemBuilder: (context, index) {
-          if (index == 0) {
-            return _CreateRoomButton();
-          }
-          final User user = onlineUsers[index - 1];
-          return Container(
-            padding: EdgeInsets.symmetric(horizontal: 8),
-            child: ProfileAvatar(
-              imageUrl: user.imageUrl,
-              isActive: true,
-            ),
-          );
-        },
+    final bool isDesktop = Responsive.isDesktop(context);
+    return Card(
+      margin: EdgeInsets.symmetric(horizontal: isDesktop ? 5.0 : 0.0),
+      elevation: isDesktop ? 1.0 : 0.0,
+      shape: isDesktop ?  RoundedRectangleBorder(borderRadius: BorderRadius.circular(ThemeDimens.radius)) : null,
+      child: Container(
+        height: 60,
+        child: ListView.builder(
+          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
+          scrollDirection: Axis.horizontal,
+          itemCount: onlineUsers.length + 1,
+          itemBuilder: (context, index) {
+            if (index == 0) {
+              return _CreateRoomButton();
+            }
+            final User user = onlineUsers[index - 1];
+            return Container(
+              padding: EdgeInsets.symmetric(horizontal: 8),
+              child: ProfileAvatar(
+                imageUrl: user.imageUrl,
+                isActive: true,
+              ),
+            );
+          },
+        ),
       ),
     );
   }

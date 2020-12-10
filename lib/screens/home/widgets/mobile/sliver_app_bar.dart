@@ -15,7 +15,7 @@ class HomeSliverAppBar extends StatelessWidget {
         style: TextStyle(
           color: ThemeColors.fakebookColor,
           fontWeight: FontWeight.bold,
-          fontSize: ThemeText.tittleSize,
+          fontSize: ThemeText.titleSize,
           letterSpacing: -1.2,
         ),
       ),
